@@ -53,7 +53,7 @@ void CopyDir::copy(const std::string& srcDirPath, const std::string& desDirPath)
         std::cout << "src dir is empty" << std::endl;  
         return;  
     }  
-  
+    // print_vector(fileNameList);
     do_copy(fileNameList);  
    // cout<<"leave copy..";
 
@@ -105,37 +105,39 @@ void CopyDir::do_copy(const std::vector<std::string> &fileNameList)
     //cout<<"come into do_copy..";
 
 #pragma omp parallel for  
-    for (int i = 2; i < fileNameList.size(); i++)  
-    {  
-        std::string nowSrcFilePath, nowDesFilePath ;  
+    for (int i = 0; i < fileNameList.size(); i++)  
+    {
+        if(fileNameList[i] != "." && fileNameList[i] != "..") 
+        {
+            std::string nowSrcFilePath, nowDesFilePath ;  
  
-        nowSrcFilePath = this->srcDirPath + "/" + fileNameList.at(i);  
-        nowDesFilePath = this->desDirPath + "/" + fileNameList.at(i);  
-  
-        std::ifstream in;  
-        in.open(nowSrcFilePath.c_str());  
-        if(!in)  
-        {  
-            std::cout << "open src file : " << nowSrcFilePath << " failed" << std::endl;  
-            continue;  
-        }  
-  
-        std::ofstream out;  
-        out.open(nowDesFilePath.c_str());  
-        if(!out)  
-        {  
-            std::cout << "create new file : " << nowDesFilePath << " failed" << std::endl;  
+            nowSrcFilePath = this->srcDirPath + "/" + fileNameList.at(i);  
+            nowDesFilePath = this->desDirPath + "/" + fileNameList.at(i);  
+      
+            std::ifstream in;  
+            in.open(nowSrcFilePath.c_str());  
+            if(!in)  
+            {  
+                std::cout << "open src file : " << nowSrcFilePath << " failed" << std::endl;  
+                continue;  
+            }  
+      
+            std::ofstream out;  
+            out.open(nowDesFilePath.c_str());  
+            if(!out)  
+            {  
+                std::cout << "create new file : " << nowDesFilePath << " failed" << std::endl;  
+                in.close();  
+                continue;  
+            }  
+      
+            out << in.rdbuf();  
+      
+            out.close();  
             in.close();  
-            continue;  
-        }  
-  
-        out << in.rdbuf();  
-  
-        out.close();  
-        in.close();  
+        }       
     }  
     //cout<<"leave do_copy..";
-
 }  
 
 
@@ -165,17 +167,7 @@ void CopyDir::copy_from_to(char* src, char* dst, string newName, std::vector< st
     string dst_path = "";
     string dstName = "";
     string tag = "/";
-    int srcLen = 0;
-    
-    // cout<<"copy_from_to"<<endl;
-    // print_vector(src_dirs);
-
-    // cout<<list.size()<<endl;
-    // for(int w = 0; w < list.size(); w++)
-    // {
-    //     cout<<w<<" "<<list[w].first<<" "<<list[w].second;
-    // }
-    // cout<<endl;
+    int srcLen = 0;  
 
     for(int i = 0; i < list.size(); i++)
     {
@@ -196,14 +188,16 @@ void CopyDir::copy_from_to(char* src, char* dst, string newName, std::vector< st
             {
                 src_path += src + tag + src_dirs[j];
                 dst_path += dst + tag + list[i].second;
+        
+                dstName = dst_path + tag + newName;
                 
                 // cout<<src_path<<endl;
                 
                 copy(src_path, dst_path);  
-                dstName = dst_path + tag + newName;
+                
                 dst_path += tag + src_dirs[j];
+                cout<<src_path<<" --> ";
                 cout<<dst_path<<endl;
-                cout<<dstName<<endl;
                 rename(dst_path.c_str(), dstName.c_str());
             }
 

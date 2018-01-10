@@ -16,12 +16,16 @@ int main(int argc, char *argv[])
 	makeDir(dirRoot, list);
  
  	// for every member in list, bianli every experiment directories and do copy(renmae)
-    char* src = "/home/siudong/daji/exp10";  
+    char* src = "/home/siudong/daji/exp6";  
     char* dst = "/home/siudong/result";  
-    string newName = "实验10 Flash cs4";
+    string newName = "实验6 PPT";
+
+    // string str1 = "/home/siudong/daji/exp4/201736461053_安文姣";
+    // string str2 = "/home/siudong/result/安文姣";
     
     CopyDir cd; 
     cd.copy_from_to(src, dst, newName, list);  
+    // cd.copy(str1, str2);
 
     return 0;  
 }  
