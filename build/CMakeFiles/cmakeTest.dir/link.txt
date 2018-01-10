@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/cmakeTest.dir/src/main.cpp.o CMakeFiles/cmakeTest.dir/src/b.c.o CMakeFiles/cmakeTest.dir/src/maian.c.o CMakeFiles/cmakeTest.dir/src/copy_dir.cpp.o  -o cmakeTest -rdynamic -lm 

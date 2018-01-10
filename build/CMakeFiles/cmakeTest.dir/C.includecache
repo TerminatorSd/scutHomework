@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/b.h
+math.h
+-
+
+/home/siudong/myGit/cmakeTest/src/b.c
+b.h
+/home/siudong/myGit/cmakeTest/src/b.h
+
+/home/siudong/myGit/cmakeTest/src/maian.c
+b.h
+/home/siudong/myGit/cmakeTest/src/b.h
+stdio.h
+-
+

@@ -1,0 +1,3 @@
+/home/siudong/myGit/cmakeTest/build/CMakeFiles/edit_cache.dir
+/home/siudong/myGit/cmakeTest/build/CMakeFiles/rebuild_cache.dir
+/home/siudong/myGit/cmakeTest/build/CMakeFiles/cmakeTest.dir
